@@ -1,7 +1,7 @@
 #!/bin/bash
 
 environment=$1
-if [[ environment == '' ]]; then
+if [[ $environment == '' ]]; then
   environment='desktop'
 fi
 
