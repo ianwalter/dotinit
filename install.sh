@@ -1,5 +1,10 @@
 #!/bin/bash
 
+environment=$1
+if [[ environment == '' ]]; then
+  environment='desktop'
+fi
+
 if [[ $(uname) == 'Linux' ]]; then
 
   # Update Aptitude repository cache.
@@ -23,7 +28,9 @@ if [[ $(uname) == 'Linux' ]]; then
 
   # Open the browser to the GitHub settings page where you can add a new SSH
   # key.
-  xdg-open https://github.com/settings/ssh/new
+  if [[ $environment == 'desktop' ]]; then
+    xdg-open https://github.com/settings/ssh/new
+  fi
 
 fi
 
@@ -35,6 +42,12 @@ if [[ $(uname) == 'Darwin' ]]; then
 
   # Open the browser to the GitHub settings page where you can add a new SSH
   # key.
-  open https://github.com/settings/ssh/new
+  if [[ $environment == 'desktop' ]]; then
+    open https://github.com/settings/ssh/new
+  fi
 
+fi
+
+if [[ $environment == 'server' ]]; then
+  echo 'Add your SSH public key to GitHub: https://github.com/settings/ssh/new'
 fi

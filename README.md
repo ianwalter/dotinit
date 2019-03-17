@@ -3,8 +3,16 @@
 
 ## Installation
 
+For desktop:
+
 ```console
 curl https://raw.githubusercontent.com/ianwalter/dotinit/master/install.sh | bash
+```
+
+For server:
+
+```console
+curl https://raw.githubusercontent.com/ianwalter/dotinit/master/install.sh | bash -s server
 ```
 
 ## License
