@@ -1,16 +1,23 @@
 #!/bin/bash
 
+# Set the environment the script will target.
 environment=$1
 if [[ $environment == '' ]]; then
   environment='desktop'
 fi
 
+# Set the email the script will use to generate a SSH key.
 email=$2
 if [[ $email == '' ]]; then
   email='public@iankwalter.com'
 fi
 
-echo "Initializing ${environment} setup for ${email}..."
+# Install bpkg, the bash package manager.
+curl -Lo- "https://raw.githubusercontent.com/bpkg/bpkg/master/setup.sh" | bash
+
+# Log what the script will do.
+{ term color blue; }
+{ printf "\n💁 Initializing ${environment} setup for ${email}...\n"; }
 
 if [[ $(uname) == 'Linux' ]]; then
 
@@ -52,6 +59,9 @@ if [[ $(uname) == 'Darwin' ]]; then
 
 fi
 
+# If targetting a server environment, log the GitHub URL to add the generated
+# SSH key since the script can't automatically open it in a browser.
 if [[ $environment == 'server' ]]; then
-  echo 'Add your SSH public key to GitHub: https://github.com/settings/ssh/new'
+  { term color green; }
+  { printf "\n🔒 Add your SSH public key to GitHub: https://github.com/settings/ssh/new\n"; }
 fi
