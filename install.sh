@@ -26,7 +26,7 @@ if [[ $(uname) == 'Linux' ]]; then
 
   # Install xclip so that the script can easily copy the SSH public key
   # generated in the next step to the clipboard.
-  sudo apt install xclip
+  sudo apt install git xclip
 
 fi
 
@@ -46,6 +46,8 @@ if [[ $(uname) == 'Linux' ]]; then
 
 fi
 
+{ term color green; } && { printf "\n✅ Success!\n"; }
+
 if [[ $(uname) == 'Darwin' ]]; then
 
   # Copy the generated SSH public key to the clipboard.
@@ -62,6 +64,6 @@ fi
 # If targetting a server environment, log the GitHub URL to add the generated
 # SSH key since the script can't automatically open it in a browser.
 if [[ $environment == 'server' ]]; then
-  { term color green; }
+  { term color yellow; }
   { printf "\n🔒 Add your SSH public key to GitHub: https://github.com/settings/ssh/new\n"; }
 fi
