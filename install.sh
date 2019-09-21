@@ -12,14 +12,6 @@ if [[ $email == '' ]]; then
   email='public@iankwalter.com'
 fi
 
-# Install bpkg, the bash package manager, and the term utility.
-curl -Lo- "https://raw.githubusercontent.com/bpkg/bpkg/master/setup.sh" | bash
-bpkg install -g term
-
-# Log what the script will do.
-{ term color blue; }
-{ printf "\n💁 Initializing ${environment} setup for ${email}...\n\n"; }
-
 if [[ $(uname) == 'Linux' ]]; then
 
   # Update Aptitude repository cache.
@@ -30,6 +22,14 @@ if [[ $(uname) == 'Linux' ]]; then
   sudo apt install git xclip make
 
 fi
+
+# Install bpkg, the bash package manager, and the term utility.
+curl -Lo- "https://raw.githubusercontent.com/bpkg/bpkg/master/setup.sh" | bash
+bpkg install -g term
+
+# Log what the script will do.
+{ term color blue; }
+{ printf "\n💁 Initializing ${environment} setup for ${email}...\n\n"; }
 
 # Generate the SSH key.
 ssh-keygen -t rsa -b 4096 -q -N "" -f ~/.ssh/id_rsa -C $email
