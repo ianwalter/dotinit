@@ -27,7 +27,7 @@ if [[ $(uname) == 'Linux' ]]; then
 
   # Install xclip so that the script can easily copy the SSH public key
   # generated in the next step to the clipboard.
-  sudo apt install git xclip
+  sudo apt install git xclip make
 
 fi
 
