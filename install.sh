@@ -12,12 +12,13 @@ if [[ $email == '' ]]; then
   email='public@iankwalter.com'
 fi
 
-# Install bpkg, the bash package manager.
+# Install bpkg, the bash package manager, and the term utility.
 curl -Lo- "https://raw.githubusercontent.com/bpkg/bpkg/master/setup.sh" | bash
+bpkg install -g term
 
 # Log what the script will do.
 { term color blue; }
-{ printf "\n💁 Initializing ${environment} setup for ${email}...\n"; }
+{ printf "\n💁 Initializing ${environment} setup for ${email}...\n\n"; }
 
 if [[ $(uname) == 'Linux' ]]; then
 
@@ -65,5 +66,5 @@ fi
 # SSH key since the script can't automatically open it in a browser.
 if [[ $environment == 'server' ]]; then
   { term color yellow; }
-  { printf "\n🔒 Add your SSH public key to GitHub: https://github.com/settings/ssh/new\n"; }
+  { printf "\n🔒 Add your SSH public key to GitHub: https://github.com/settings/ssh/new\n\n"; }
 fi
