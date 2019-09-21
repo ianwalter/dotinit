@@ -12,6 +12,9 @@ if [[ $email == '' ]]; then
   email='public@iankwalter.com'
 fi
 
+# Log what the script will do.
+printf "\n💁 Initializing ${environment} setup for ${email}...\n\n"
+
 if [[ $(uname) == 'Linux' ]]; then
 
   # Update Aptitude repository cache.
@@ -19,18 +22,9 @@ if [[ $(uname) == 'Linux' ]]; then
 
   # Install xclip so that the script can easily copy the SSH public key
   # generated in the next step to the clipboard.
-  sudo apt install git xclip make
+  sudo apt install xclip
 
 fi
-
-# Install bpkg, the bash package manager, and the term utility.
-curl -Lo- "https://raw.githubusercontent.com/bpkg/bpkg/master/setup.sh" | bash
-bpkg install -g term
-
-# Log what the script will do.
-{ term color blue; } && {
-  printf "\n💁 Initializing ${environment} setup for ${email}...\n\n";
-}
 
 # Generate the SSH key.
 ssh-keygen -t rsa -b 4096 -q -N "" -f ~/.ssh/id_rsa -C $email
@@ -48,7 +42,7 @@ if [[ $(uname) == 'Linux' ]]; then
 
 fi
 
-{ term color green; } && { printf "\n✅ Success!\n"; }
+printf '\n✅ Success!\n\n';
 
 if [[ $(uname) == 'Darwin' ]]; then
 
@@ -66,6 +60,5 @@ fi
 # If targetting a server environment, log the GitHub URL to add the generated
 # SSH key since the script can't automatically open it in a browser.
 if [[ $environment == 'server' ]]; then
-  { term color yellow; }
-  { printf "\n🔒 Add your SSH public key to GitHub: https://github.com/settings/ssh/new\n\n"; }
+  printf '\n🔒 Add your SSH public key to GitHub: https://github.com/settings/ssh/new\n\n'
 fi
