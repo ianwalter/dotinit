@@ -5,6 +5,13 @@ if [[ $environment == '' ]]; then
   environment='desktop'
 fi
 
+email=$2
+if [[ $email == '' ]]; then
+  email='public@iankwalter.com'
+fi
+
+echo "Initializing ${environment} setup for ${email}..."
+
 if [[ $(uname) == 'Linux' ]]; then
 
   # Update Aptitude repository cache.
@@ -17,9 +24,7 @@ if [[ $(uname) == 'Linux' ]]; then
 fi
 
 # Generate the SSH key.
-ssh-keygen -t rsa -b 4096 -q -N "" -f ~/.ssh/id_rsa \
-  -C "public@iankwalter.com" # Change me!
-
+ssh-keygen -t rsa -b 4096 -q -N "" -f ~/.ssh/id_rsa -C $email
 
 if [[ $(uname) == 'Linux' ]]; then
 
@@ -33,7 +38,6 @@ if [[ $(uname) == 'Linux' ]]; then
   fi
 
 fi
-
 
 if [[ $(uname) == 'Darwin' ]]; then
 

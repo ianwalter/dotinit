@@ -6,13 +6,13 @@
 For desktop:
 
 ```console
-curl https://raw.githubusercontent.com/ianwalter/dotinit/master/install.sh | bash
+curl https://raw.githubusercontent.com/ianwalter/dotinit/master/install.sh | bash -s desktop <email>
 ```
 
 For server:
 
 ```console
-curl https://raw.githubusercontent.com/ianwalter/dotinit/master/install.sh | bash -s server
+curl https://raw.githubusercontent.com/ianwalter/dotinit/master/install.sh | bash -s server <email>
 ```
 
 ## License
