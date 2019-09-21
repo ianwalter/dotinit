@@ -3,16 +3,11 @@
 
 ## Installation
 
-For desktop:
+Add your email address as a paremeter or mine will be used to generate a SSH
+key!
 
 ```console
-curl https://raw.githubusercontent.com/ianwalter/dotinit/master/install.sh | bash -s desktop <email>
-```
-
-For server:
-
-```console
-curl https://raw.githubusercontent.com/ianwalter/dotinit/master/install.sh | bash -s server <email>
+curl https://raw.githubusercontent.com/ianwalter/dotinit/master/install.sh | bash -s <email>
 ```
 
 ## License

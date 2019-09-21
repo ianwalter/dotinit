@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Set the environment the script will target.
-environment=$1
-if [[ $environment == '' ]]; then
+environment=$DISPLAY
+if [[ $environment != '' ]]; then
   environment='desktop'
 fi
 
@@ -58,9 +58,9 @@ if [[ $(uname) == 'Darwin' ]]; then
 
 fi
 
-# If targetting a server environment, log the GitHub URL to add the generated
-# SSH key since the script can't automatically open it in a browser.
-if [[ $environment == 'server' ]]; then
+# If targetting a non-desktop environment, log the GitHub URL to add the
+# generated SSH key since the script can't automatically open it in a browser.
+if [[ $environment != 'desktop' ]]; then
   ip=$(curl ifconfig.me)
   printf "\n📋 Run 'ssh root@${ip} \"cat ~/.ssh/id_rsa.pub\" | pbcopy' to copy your SSH public key to your clipboard."
   printf '\n🔒 Add your SSH public key to GitHub: https://github.com/settings/ssh/new\n\n'
