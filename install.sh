@@ -17,12 +17,15 @@ printf "\n💁 Initializing ${environment} setup for ${email}...\n\n"
 
 if [[ $(uname) == 'Linux' ]]; then
 
-  # Update Aptitude repository cache.
-  sudo apt-get update
+  # Update Aptitude repository cache and install git.
+  sudo apt-get update && sudo apt-get install -y git
+
 
   # Install xclip so that the script can easily copy the SSH public key
   # generated in the next step to the clipboard.
-  sudo apt-get install -y xclip
+  if [[ $environment == 'desktop' ]]; then
+    sudo apt-get install -y xclip
+  fi
 
 fi
 
