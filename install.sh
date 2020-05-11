@@ -7,7 +7,7 @@ if [[ $environment != '' ]]; then
 fi
 
 # Set the email the script will use to generate a SSH key.
-email=$2
+email=$1
 if [[ $email == '' ]]; then
   email='public@iankwalter.com'
 fi
