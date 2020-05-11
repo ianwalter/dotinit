@@ -9,7 +9,7 @@ fi
 # Set the email the script will use to generate a SSH key.
 email=$1
 if [[ $email == '' ]]; then
-  email='public@iankwalter.com'
+  email='pub@ianwalter.dev'
 fi
 
 # Log what the script will do.
