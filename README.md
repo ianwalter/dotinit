@@ -4,10 +4,10 @@
 ## Installation
 
 Add your email address as a paremeter or mine will be used to generate a SSH
-key!
+key! Specify a username if running as root.
 
 ```console
-curl https://raw.githubusercontent.com/ianwalter/dotinit/master/install.sh | bash -s <email>
+curl https://raw.githubusercontent.com/ianwalter/dotinit/master/install.sh | bash -s <email> <username>
 ```
 
 ## License
