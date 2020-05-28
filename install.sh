@@ -12,24 +12,29 @@ if [[ $email == '' ]]; then
   email='pub@ianwalter.dev'
 fi
 
-# Install Homebrew (and Linuxbrew).
-printf "\n🍺 Installing Homebrew \n\n"
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-
-# Install 1Password CLI if not installed.
 if [[ ! `which op` ]]; then
 
   printf "\n💁 Installing 1Password CLI \n\n"
 
   if [[ $(uname) == 'Linux' && $environment == 'desktop' ]]; then
+
+    # Install 1Password CLI manually.
     opVersion='v1.0.0'
     sudo apt-get update && sudo apt-get install -y unzip git
     curl -O https://cache.agilebits.com/dist/1P/op/pkg/$opVersion/op_linux_amd64_$opVersion.zip
     unzip op_linux_amd64_$opVersion.zip
     sudo mv op /usr/local/bin
+
   else
-    if [[ $(uname) == 'Darwin' ]]; then
+    if [[ $(uname) == 'Darwin' && ! `which brew` ]]; then
+
+      # Install Homebrew.
+      printf "\n🍺 Installing Homebrew \n\n"
+      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+
+      # Install 1Password CLI through Homebrew.
       brew cask install 1password-cli
+
     fi
   fi
 
