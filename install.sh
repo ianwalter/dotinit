@@ -12,64 +12,37 @@ if [[ $email == '' ]]; then
   email='pub@ianwalter.dev'
 fi
 
-# Set the username.
-username=$USER
-if [[ $2 != '' ]]; then
-  username=$2
-else
-  if [[ $username == 'root' ]]; then
-    username='ian'
-  fi
-fi
+# Install Homebrew (and Linuxbrew).
+printf "\n🍺 Installing Homebrew \n\n"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
-# Log what the script will do.
-printf "\n💁 Initializing ${environment} setup for ${email} ${username}...\n\n"
-
-# Create a new user if the given username is different from the current user.
-is_new_user=''
-if [[ $USER != $username ]]; then
-  is_new_user='true'
-
-  # Generate a random password.
-  password=$(openssl rand -base64 9)
-  password_md5=$(openssl passwd -1 "${password}")
-
-  # Create the user.
-  useradd $username --password "${password_md5}" --create-home
-
-  # Add user to sudoers group.
-  usermod -aG sudo $username
-
-  # Print the result.
-  if [[ $? == 0 ]]; then
-    printf "\n✅ Created user \"${username}\" with password \"${password}\"\n\n"
-  else
-    printf "\n🚫 Failed to create user \"${username}\"\n"
-  fi
-fi
-
+# Install 1Password CLI.
+printf "\n💁 Installing 1Password CLI \n\n"
 if [[ $(uname) == 'Linux' ]]; then
-
-  # Update Aptitude repository cache and install git.
-  sudo apt-get update && sudo apt-get install -y git
-
-
-  # Install xclip so that the script can easily copy the SSH public key
-  # generated in the next step to the clipboard.
-  if [[ $environment == 'desktop' ]]; then
-    sudo apt-get install -y xclip
-  fi
-
+  opVersion='v1.0.0'
+  sudo apt-get update && sudo apt-get install -y unzip git
+  curl -O https://cache.agilebits.com/dist/1P/op/pkg/$opVersion/op_linux_amd64_$opVersion.zip
+  unzip op_linux_amd64_$opVersion.zip
+  sudo mv op /usr/local/bin
+else
+  brew cask install 1password-cli
 fi
 
-# Generate the SSH key.
+printf "\n👉 Login to 1Password by running \"op signin <domain> <email>\"\n\n"
+
+# Generate an SSH key.
+printf "\n🔑 Generating an SSH key for ${email}\n\n"
 ssh-keygen -t rsa -b 4096 -q -N "" -f ~/.ssh/id_rsa -C $email
 
-printf '\n✅ Success!\n\n';
-
 if [[ $(uname) == 'Linux' ]]; then
 
   if [[ $environment == 'desktop' ]]; then
+
+    # Install xclip so that the script can easily copy the SSH public key
+    # generated in the next step to the clipboard.
+    if [[ $environment == 'desktop' ]]; then
+      sudo apt-get install -y xclip
+    fi
 
     # Copy the generated SSH public key to the clipboard.
     xclip -sel clip < ~/.ssh/id_rsa.pub
@@ -81,7 +54,8 @@ if [[ $(uname) == 'Linux' ]]; then
   else
 
     # If targetting a non-desktop environment, log the GitHub URL to add the
-    # generated SSH key since the script can't automatically open it in a browser.
+    # generated SSH key since the script can't automatically open it in a
+    # browser.
     ip=$(curl ifconfig.me)
     printf "\n📋 Run 'ssh root@${ip} \"cat ~/.ssh/id_rsa.pub\" | pbcopy' to copy your SSH public key to your clipboard."
     printf '\n🔒 Add your SSH public key to GitHub: https://github.com/settings/ssh/new\n\n'
@@ -97,9 +71,6 @@ else
   # key.
   open https://github.com/settings/ssh/new
 
-fi
+  printf '\n✅ Success! Paste your SSH key into GitHub \n\n';
 
-# If a new user was created, switch to the new user.
-if [[ $is_new_user != '' ]]; then
-  su - $username
 fi
