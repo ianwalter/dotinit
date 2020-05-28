@@ -31,8 +31,10 @@ fi
 printf "\n👉 Login to 1Password by running \"op signin <domain> <email>\"\n\n"
 
 # Generate an SSH key.
-printf "\n🔑 Generating an SSH key for ${email}\n\n"
-ssh-keygen -t rsa -b 4096 -q -N "" -f ~/.ssh/id_rsa -C $email
+if [[ ! -d ~/.ssh/id_rsa ]]; then
+  printf "\n🔑 Generating an SSH key for ${email}\n\n"
+  ssh-keygen -t rsa -b 4096 -q -N "" -f ~/.ssh/id_rsa -C $email
+fi
 
 if [[ $(uname) == 'Linux' ]]; then
 
