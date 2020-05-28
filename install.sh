@@ -43,9 +43,10 @@ if [[ ! `which op` ]]; then
 fi
 
 # Generate an SSH key.
-if [[ ! -d ~/.ssh/id_rsa ]]; then
+sshKey=$HOME/.ssh/id_rsa
+if [[ ! -d $sshKey ]]; then
   printf "\n🔑 Generating an SSH key for ${email}\n\n"
-  ssh-keygen -t rsa -b 4096 -q -N "" -f ~/.ssh/id_rsa -C $email
+  ssh-keygen -t rsa -b 4096 -q -N "" -f $sshKey -C $email
 fi
 
 if [[ $(uname) == 'Linux' ]]; then
