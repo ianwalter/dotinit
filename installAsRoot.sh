@@ -51,7 +51,7 @@ if [[ $USER != $username ]]; then
   fi
 fi
 
-# Execute the base installation script as the new user and then switch to the
-# user.
-sudo -H -u $username bash -c "curl https://raw.githubusercontent.com/ianwalter/dotinit/master/install.sh | bash -s ${email}"
-su - $username
+# Switch to the new user and execute the base installation script.
+curl -O https://raw.githubusercontent.com/ianwalter/dotinit/master/install.sh
+chmod +x install.sh
+su - $username -c "./install.sh ${email}"
