@@ -16,6 +16,21 @@ if [[ $email == '' ]]; then
   email='pub@ianwalter.dev'
 fi
 
+# Install 1Password CLI.
+if [[ ! `which op` ]]; then
+
+  printf "\n💁 Installing 1Password CLI \n\n"
+
+  opVersion='v1.0.0'
+  apt update && apt install -y unzip git
+  curl -O https://cache.agilebits.com/dist/1P/op/pkg/$opVersion/op_linux_amd64_$opVersion.zip
+  unzip op_linux_amd64_$opVersion.zip
+  mv op /usr/local/bin
+
+  printf "\n👉 Login to 1Password by running 'op signin <domain> <email>'\n\n"
+
+fi
+
 # Create a new user if the given username is different from the current user.
 if [[ $USER != $username ]]; then
   # Generate a random password.
@@ -38,4 +53,5 @@ fi
 
 # Switch to the new user and execute the base installation script.
 su - $username -c "curl https://raw.githubusercontent.com/ianwalter/dotinit/master/install.sh | bash -s ${email}"
+su - $username
 

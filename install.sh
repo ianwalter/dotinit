@@ -16,19 +16,26 @@ fi
 printf "\n🍺 Installing Homebrew \n\n"
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
-# Install 1Password CLI.
-printf "\n💁 Installing 1Password CLI \n\n"
-if [[ $(uname) == 'Linux' ]]; then
-  opVersion='v1.0.0'
-  sudo apt-get update && sudo apt-get install -y unzip git
-  curl -O https://cache.agilebits.com/dist/1P/op/pkg/$opVersion/op_linux_amd64_$opVersion.zip
-  unzip op_linux_amd64_$opVersion.zip
-  sudo mv op /usr/local/bin
-else
-  brew cask install 1password-cli
-fi
+# Install 1Password CLI if not installed.
+if [[ ! `which op` ]]; then
 
-printf "\n👉 Login to 1Password by running \"op signin <domain> <email>\"\n\n"
+  printf "\n💁 Installing 1Password CLI \n\n"
+
+  if [[ $(uname) == 'Linux' && $environment == 'desktop' ]]; then
+    opVersion='v1.0.0'
+    sudo apt-get update && sudo apt-get install -y unzip git
+    curl -O https://cache.agilebits.com/dist/1P/op/pkg/$opVersion/op_linux_amd64_$opVersion.zip
+    unzip op_linux_amd64_$opVersion.zip
+    sudo mv op /usr/local/bin
+  else
+    if [[ $(uname) == 'Darwin' ]]; then
+      brew cask install 1password-cli
+    fi
+  fi
+
+  printf "\n👉 Login to 1Password by running 'op signin <domain> <email>'\n\n"
+
+fi
 
 # Generate an SSH key.
 if [[ ! -d ~/.ssh/id_rsa ]]; then
