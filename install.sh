@@ -26,7 +26,10 @@ fi
 printf "\n💁 Initializing ${environment} setup for ${email} ${username}...\n\n"
 
 # Create a new user if the given username is different from the current user.
+is_new_user=''
 if [[ $USER != $username ]]; then
+  is_new_user='true'
+
   # Generate a random password.
   password=$(openssl rand -base64 9)
   password_md5=$(openssl passwd -1 "${password}")
@@ -96,3 +99,7 @@ else
 
 fi
 
+# If a new user was created, switch to the new user.
+if [[ $is_new_user != '' ]]; then
+  su - $username
+fi
