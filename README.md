@@ -32,7 +32,7 @@ curl https://raw.githubusercontent.com/ianwalter/dotinit/master/installAsRoot.sh
 
 Hippocratic License - See [LICENSE][licenseUrl]
 
-&nbsp;
+<hr style="height: 1px">
 
 Created by [Ian Walter](https://ianwalter.dev)
 
