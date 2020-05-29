@@ -72,7 +72,7 @@ if [[ $(uname) == 'Linux' ]]; then
     # generated SSH key since the script can't automatically open it in a
     # browser.
     ip=$(curl ifconfig.me)
-    printf "\n📋 Run 'ssh root@${ip} \"cat ~/.ssh/id_rsa.pub\" | pbcopy' to copy your SSH public key to your clipboard."
+    printf "\n📋 Run 'ssh ${USER}@${ip} \"cat ~/.ssh/id_rsa.pub\" | pbcopy' to copy your SSH public key to your clipboard."
     printf '\n🔒 Add your SSH public key to GitHub: https://github.com/settings/ssh/new\n\n'
 
   fi
