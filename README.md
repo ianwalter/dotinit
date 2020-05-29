@@ -7,14 +7,14 @@ Add your email address as a paremeter or mine will be used to generate a SSH
 key!
 
 ```console
-curl https://raw.githubusercontent.com/ianwalter/dotinit/master/install.sh | bash -s <email>
+bash <(curl https://raw.githubusercontent.com/ianwalter/dotinit/master/install.sh) <email>
 ```
 
 If you're `root` and need to create a new user, run this instead and pass a name
 for the user:
 
 ```console
-curl https://raw.githubusercontent.com/ianwalter/dotinit/master/installAsRoot.sh | bash -s <username> <email>
+bash <(curl https://raw.githubusercontent.com/ianwalter/dotinit/master/installAsRoot.sh) <username> <email>
 ```
 
 ## What it does
