@@ -14,9 +14,9 @@ fi
 
 if [[ ! `which op` ]]; then
 
-  printf "\n💁 Installing 1Password CLI \n\n"
-
   if [[ $(uname) == 'Linux' && $environment == 'desktop' ]]; then
+
+    printf "\n💁 Installing 1Password CLI \n\n"
 
     # Install 1Password CLI manually.
     opVersion='v1.0.0'
@@ -30,13 +30,20 @@ if [[ ! `which op` ]]; then
 
       # Install Homebrew.
       if [[ ! `which brew` ]]; then
+
         printf "\n🍺 Installing Homebrew \n\n"
+
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+
       fi
 
       # Install 1Password CLI through Homebrew.
       if [[ ! `which op` ]]; then
+
+        printf "\n💁 Installing 1Password CLI \n\n"
+
         brew cask install 1password-cli
+
       fi
 
     fi
