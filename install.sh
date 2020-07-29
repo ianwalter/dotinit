@@ -29,11 +29,15 @@ if [[ ! `which op` ]]; then
     if [[ $(uname) == 'Darwin' && ! `which brew` ]]; then
 
       # Install Homebrew.
-      printf "\n🍺 Installing Homebrew \n\n"
-      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+      if [[ ! `which brew` ]]; then
+        printf "\n🍺 Installing Homebrew \n\n"
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+      fi
 
       # Install 1Password CLI through Homebrew.
-      brew cask install 1password-cli
+      if [[ ! `which op` ]]; then
+        brew cask install 1password-cli
+      fi
 
     fi
   fi
