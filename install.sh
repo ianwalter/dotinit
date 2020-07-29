@@ -26,7 +26,7 @@ if [[ ! `which op` ]]; then
     sudo mv op /usr/local/bin
 
   else
-    if [[ $(uname) == 'Darwin' && ! `which brew` ]]; then
+    if [[ $(uname) == 'Darwin' ]]; then
 
       # Install Homebrew.
       if [[ ! `which brew` ]]; then
